@@ -22,7 +22,8 @@ struct ContentView: View {
         Mood(text: "在挑吃的", emoji: "🍜"),
         Mood(text: "在看外面", emoji: "🌧️"),
         Mood(text: "在钓鱼", emoji: "🎣"),
-        Mood(text: "在想你", emoji: "💭")
+        Mood(text: "在想你", emoji: "💭"),
+        Mood(text: "困了", emoji: "💤")
     ]
     @State private var message = ""
 
