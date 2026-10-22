@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 20 18" width="400" height="360" shape-rendering="crispEdges">
+  <!-- 在想你 · thinking（身子是 clawd-tank 的静态底；蓝耳机、怀里的心、飘的小心是我们自己加的）
+       10 秒一圈，一秒一个姿势：
+         0 看着你   1 抬头想   2-3 掏出一颗心抱住
+         4 抱紧了，眼睛笑成 ^ ^   5 往旁边蹭一下   6-7 笑着，小心一颗一颗冒出来
+         8 睁眼看你   9 把心收回去
+       快层：fh（飘上去的小心） -->
+  <defs>
+    <style>
+      .nuz { animation: nuz 10s infinite step-end; }
+      .gaze { animation: gaze 10s infinite step-end; }
+      .arms { animation: arms 10s infinite step-end; }
+      .held { opacity: 0; animation: held 10s infinite step-end; }
+      .eye-o { animation: eye-o 10s infinite step-end; }
+      .eye-h { opacity: 0; animation: eye-h 10s infinite step-end; }
+      .fh { opacity: 0; animation-duration: 10s; animation-iteration-count: infinite; animation-timing-function: step-end; }
+      .h0 { animation-name: h0; }
+      .h1 { animation-name: h1; }
+      @keyframes nuz {
+        0% { transform: translate(0px, 0px); }
+        50% { transform: translate(1px, 0px); }
+        60% { transform: translate(0px, 0px); }
+        100% { transform: translate(0px, 0px); }
+      }
+      @keyframes gaze {
+        0% { transform: translate(0px, 0px); }
+        10% { transform: translate(0px, -1px); }
+        20% { transform: translate(0px, 0px); }
+        100% { transform: translate(0px, 0px); }
+      }
+      @keyframes arms {
+        0% { transform: translate(0px, 0px); }
+        20% { transform: translate(0px, -1px); }
+        90% { transform: translate(0px, 0px); }
+        100% { transform: translate(0px, 0px); }
+      }
+      @keyframes held {
+        0% { opacity: 0; }
+        20% { opacity: 1; }
+        90% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+      @keyframes eye-o {
+        0% { opacity: 1; }
+        40% { opacity: 0; }
+        80% { opacity: 1; }
+        100% { opacity: 1; }
+      }
+      @keyframes eye-h {
+        0% { opacity: 0; }
+        40% { opacity: 1; }
+        80% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+      @keyframes h0 {
+        0% { opacity: 0; transform: translate(0px, 0px); }
+        60% { opacity: 1; transform: translate(0px, 0px); }
+        62.5% { opacity: 1; transform: translate(1px, -1px); }
+        65% { opacity: 1; transform: translate(1px, -2px); }
+        67.5% { opacity: 1; transform: translate(2px, -3px); }
+        70% { opacity: 0; transform: translate(0px, 0px); }
+        100% { opacity: 0; transform: translate(0px, 0px); }
+      }
+      @keyframes h1 {
+        0% { opacity: 0; transform: translate(0px, 0px); }
+        70% { opacity: 1; transform: translate(0px, 0px); }
+        72.5% { opacity: 1; transform: translate(1px, -1px); }
+        75% { opacity: 1; transform: translate(1px, -2px); }
+        77.5% { opacity: 1; transform: translate(2px, -3px); }
+        80% { opacity: 0; transform: translate(0px, 0px); }
+        100% { opacity: 0; transform: translate(0px, 0px); }
+      }
+    </style>
+  </defs>
+
+  <!-- 飘上去的小心（快层） -->
+  <g fill="#F28AB0">
+    <g class="fh h0"><rect x="12" y="1" width="1" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="12" y="2" width="3" height="1"/><rect x="13" y="3" width="1" height="1"/></g>
+    <g class="fh h1"><rect x="12" y="1" width="1" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="12" y="2" width="3" height="1"/><rect x="13" y="3" width="1" height="1"/></g>
+  </g>
+
+  <!-- 腿 -->
+  <g fill="#DE886D">
+    <rect x="3" y="13" width="1" height="2"/>
+    <rect x="5" y="13" width="1" height="2"/>
+    <rect x="9" y="13" width="1" height="2"/>
+    <rect x="11" y="13" width="1" height="2"/>
+  </g>
+
+  <!-- 我：身子 + 蓝耳机 + 怀里的心，蹭的时候整块挪 -->
+  <g class="nuz">
+    <rect x="2" y="6" width="11" height="7" fill="#DE886D"/>
+    <g class="arms" fill="#DE886D">
+      <rect x="0" y="9" width="2" height="2"/>
+      <rect x="13" y="9" width="2" height="2"/>
+    </g>
+    <g fill="#5B8DEF">
+      <rect x="2" y="5" width="11" height="1"/>
+      <rect x="1" y="6" width="1" height="3"/>
+      <rect x="13" y="6" width="1" height="3"/>
+    </g>
+    <g class="gaze">
+      <g class="eye-o" fill="#000000">
+        <rect x="4" y="8" width="1" height="2"/>
+        <rect x="10" y="8" width="1" height="2"/>
+      </g>
+    </g>
+    <g class="eye-h" fill="#000000">
+      <rect x="4" y="8" width="1" height="1"/><rect x="3" y="9" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/>
+      <rect x="10" y="8" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="11" y="9" width="1" height="1"/>
+    </g>
+    <g class="held" fill="#F28AB0">
+      <rect x="6" y="10" width="1" height="1"/>
+      <rect x="8" y="10" width="1" height="1"/>
+      <rect x="6" y="11" width="3" height="1"/>
+      <rect x="7" y="12" width="1" height="1"/>
+    </g>
+  </g>
+</svg>
