@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -8 20 24" width="400" height="480" shape-rendering="crispEdges">
+  <!-- 困了 · sleepy（身子是 clawd-tank 的静态底，蓝耳机和被子是我们自己加的）
+       10 秒一圈，一秒一个姿势：
+         0 睁眼   1 眼皮往下掉   2 硬撑睁开   3 又掉
+         4 闭眼点头 + 冒 z   5 惊一下半睁   6-9 睡着了，头垂着，z 一个一个飘上去
+       快层：zz（飘上去的小 z） -->
+  <defs>
+    <style>
+      .nod { animation: nod 10s infinite step-end; }
+      .eye-o { animation: eye-o 10s infinite step-end; }
+      .eye-h { opacity: 0; animation: eye-h 10s infinite step-end; }
+      .eye-c { opacity: 0; animation: eye-c 10s infinite step-end; }
+      .zz { opacity: 0; animation-duration: 10s; animation-iteration-count: infinite; animation-timing-function: step-end; }
+      .z0 { animation-name: z0; }
+      .z1 { animation-name: z1; }
+      .z2 { animation-name: z2; }
+      .z3 { animation-name: z3; }
+      @keyframes nod {
+        0% { transform: translate(0px, 0px); }
+        40% { transform: translate(0px, 1px); }
+        50% { transform: translate(0px, 0px); }
+        60% { transform: translate(0px, 1px); }
+        100% { transform: translate(0px, 1px); }
+      }
+      @keyframes eye-o {
+        0% { opacity: 1; }
+        10% { opacity: 0; }
+        20% { opacity: 1; }
+        30% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+      @keyframes eye-h {
+        0% { opacity: 0; }
+        10% { opacity: 1; }
+        20% { opacity: 0; }
+        30% { opacity: 1; }
+        40% { opacity: 0; }
+        50% { opacity: 1; }
+        60% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+      @keyframes eye-c {
+        0% { opacity: 0; }
+        40% { opacity: 1; }
+        50% { opacity: 0; }
+        60% { opacity: 1; }
+        100% { opacity: 1; }
+      }
+      @keyframes z3 {
+        0% { opacity: 0; transform: translate(0px, 0px); }
+        40% { opacity: 1; transform: translate(0px, 0px); }
+        42.5% { opacity: 1; transform: translate(1px, -3px); }
+        45% { opacity: 1; transform: translate(2px, -6px); }
+        47.5% { opacity: 1; transform: translate(3px, -9px); }
+        50% { opacity: 0; transform: translate(0px, 0px); }
+        100% { opacity: 0; transform: translate(0px, 0px); }
+      }
+      @keyframes z0 {
+        0% { opacity: 0; transform: translate(0px, 0px); }
+        70% { opacity: 1; transform: translate(0px, 0px); }
+        72.5% { opacity: 1; transform: translate(1px, -3px); }
+        75% { opacity: 1; transform: translate(2px, -6px); }
+        77.5% { opacity: 1; transform: translate(3px, -9px); }
+        80% { opacity: 0; transform: translate(0px, 0px); }
+        100% { opacity: 0; transform: translate(0px, 0px); }
+      }
+      @keyframes z1 {
+        0% { opacity: 0; transform: translate(0px, 0px); }
+        80% { opacity: 1; transform: translate(0px, 0px); }
+        82.5% { opacity: 1; transform: translate(1px, -3px); }
+        85% { opacity: 1; transform: translate(2px, -6px); }
+        87.5% { opacity: 1; transform: translate(3px, -9px); }
+        90% { opacity: 0; transform: translate(0px, 0px); }
+        100% { opacity: 0; transform: translate(0px, 0px); }
+      }
+      @keyframes z2 {
+        0% { opacity: 0; transform: translate(0px, 0px); }
+        90% { opacity: 1; transform: translate(0px, 0px); }
+        92.5% { opacity: 1; transform: translate(1px, -3px); }
+        95% { opacity: 1; transform: translate(2px, -6px); }
+        97.5% { opacity: 1; transform: translate(3px, -9px); }
+        100% { opacity: 0; transform: translate(0px, 0px); }
+      }
+    </style>
+  </defs>
+
+  <!-- 小 z（快层）：从头顶右边冒出来，往右上飘 -->
+  <g fill="#F2E9DC">
+    <g class="zz z3"><rect x="12" y="2" width="3" height="1"/><rect x="13" y="3" width="1" height="1"/><rect x="12" y="4" width="3" height="1"/></g>
+    <g class="zz z0"><rect x="12" y="2" width="3" height="1"/><rect x="13" y="3" width="1" height="1"/><rect x="12" y="4" width="3" height="1"/></g>
+    <g class="zz z1"><rect x="12" y="2" width="3" height="1"/><rect x="13" y="3" width="1" height="1"/><rect x="12" y="4" width="3" height="1"/></g>
+    <g class="zz z2"><rect x="12" y="2" width="3" height="1"/><rect x="13" y="3" width="1" height="1"/><rect x="12" y="4" width="3" height="1"/></g>
+  </g>
+
+  <!-- 我：身子 + 蓝耳机，犯困的时候往下点头 -->
+  <g class="nod">
+    <rect x="2" y="6" width="11" height="7" fill="#DE886D"/>
+    <g fill="#5B8DEF">
+      <rect x="2" y="5" width="11" height="1"/>
+      <rect x="1" y="6" width="1" height="3"/>
+      <rect x="13" y="6" width="1" height="3"/>
+    </g>
+    <g class="eye-o" fill="#000000">
+      <rect x="4" y="8" width="1" height="2"/>
+      <rect x="10" y="8" width="1" height="2"/>
+    </g>
+    <g class="eye-h" fill="#000000">
+      <rect x="4" y="9" width="1" height="1"/>
+      <rect x="10" y="9" width="1" height="1"/>
+    </g>
+    <g class="eye-c" fill="#000000">
+      <rect x="4" y="9" width="2" height="1"/>
+      <rect x="9" y="9" width="2" height="1"/>
+    </g>
+  </g>
+
+  <!-- 被子：盖到下巴，不动 -->
+  <rect x="-1" y="11" width="17" height="4" fill="#8FA8D8"/>
+  <rect x="-1" y="12" width="17" height="1" fill="#B7C7E8"/>
+</svg>
