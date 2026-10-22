@@ -33,13 +33,16 @@ private func crabColor(_ rgb: UInt32) -> Color {
     Color(red: Double((rgb >> 16) & 0xFF) / 255, green: Double((rgb >> 8) & 0xFF) / 255, blue: Double(rgb & 0xFF) / 255)
 }
 
-// 有会动的螃蟹就用会动的，没有（比如「在想你」）就用戴耳机那只静态的
+// 「在想你」没有自己的动画，先借「在看外面」那只：趴窗台听雨、等月亮
+private let CRAB_ALIAS: [String: String] = ["在想你": "在看外面"]
+
 struct CrabFace: View {
     let state: CrabAttributes.ContentState
     let box: CGSize
     var lock: Bool = false
     var body: some View {
-        if let st = CRAB_STATES_2[state.mood] {
+        let key = CRAB_ALIAS[state.mood] ?? state.mood
+        if let st = CRAB_STATES_2[key] {
             CrabFrames2(st: st, since: state.since, box: box, lock: lock)
         } else {
             ClawdView(height: box.height * 0.7)
