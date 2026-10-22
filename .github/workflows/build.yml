@@ -8,8 +8,40 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
-      - name: Install XcodeGen
-        run: brew install xcodegen
+      - uses: actions/checkout@v4
+        with:
+          repository: TangfanOVO/clawd-icons
+          path: crabsrc
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install tools
+        run: |
+          brew install xcodegen
+          pip install pillow fonttools
+      - name: Make crab fonts
+        working-directory: crabsrc/island
+        run: |
+          python3 tools/from_svg.py fish   在钓鱼     "在钓鱼"     "#7FD1E8" crabs/fish/fish.svg     --len 10 --box 144x96 --fast fx-ring,fx-drop,fx-bub
+          python3 tools/from_svg.py care   惦记你身体 "惦记你身体" "#F2A6A6" crabs/care/care.svg     --len 10 --box 144x96 --fast steam,plus,heart
+          python3 tools/from_svg.py letter 在给你写信 "在给你写信" "#F2C879" crabs/letter/letter.svg --len 10 --box 144x96 --fast heart,ink
+          python3 tools/from_svg.py window 在看外面   "在看外面"   "#9BB8E8" crabs/window/window.svg --len 10 --box 144x96 --fast rain,star,splash
+          python3 tools/from_svg.py travel 出门走走   "出门走走"   "#9FD89A" crabs/travel/travel.svg --len 10 --box 144x96 --fast bird,leaf,dust
+          python3 tools/from_svg.py food   在挑吃的   "在挑吃的"   "#F2B279" crabs/food/food.svg     --len 10 --box 144x96 --fast fx-tick,fx-star,fx-steam
+          mkdir -p "$GITHUB_WORKSPACE/Widget/Fonts" "$GITHUB_WORKSPACE/Widget/Generated"
+          python3 tools/fonts.py "$GITHUB_WORKSPACE/Widget/Fonts" "$GITHUB_WORKSPACE/Widget/Generated/CrabStates2.swift" 在钓鱼=fish 惦记你身体=care 在给你写信=letter 在看外面=window 出门走走=travel 在挑吃的=food
+      - name: Register fonts
+        run: |
+          python3 - <<'EOF'
+          import os
+          fonts = sorted(f for f in os.listdir('Widget/Fonts') if f.endswith('.ttf'))
+          p = 'project.yml'
+          t = open(p, encoding='utf-8').read()
+          key = '        CFBundleDisplayName: "CrabWidget"\n'
+          t = t.replace(key, key + '        UIAppFonts: [' + ', '.join(fonts) + ']\n')
+          open(p, 'w', encoding='utf-8').write(t)
+          print(len(fonts), 'fonts')
+          EOF
       - name: Generate project
         run: xcodegen generate
       - name: Build
