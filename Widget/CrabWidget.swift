@@ -13,7 +13,7 @@ struct CrabLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: CrabAttributes.self) { context in
             HStack(spacing: 12) {
-                Text("🦀").font(.largeTitle)
+                ClawdView(height: 36)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(context.attributes.name).font(.headline)
                     Text("\(context.state.emoji) \(context.state.mood)").font(.subheadline)
@@ -26,7 +26,7 @@ struct CrabLiveActivity: Widget {
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("🦀").font(.title)
+                    ClawdView(height: 30)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
                     Text(context.state.emoji).font(.title)
@@ -35,11 +35,11 @@ struct CrabLiveActivity: Widget {
                     Text("\(context.attributes.name) · \(context.state.mood)")
                 }
             } compactLeading: {
-                Text("🦀")
+                ClawdView(height: 18)
             } compactTrailing: {
                 Text(context.state.emoji)
             } minimal: {
-                Text("🦀")
+                ClawdView(height: 16)
             }
         }
     }
