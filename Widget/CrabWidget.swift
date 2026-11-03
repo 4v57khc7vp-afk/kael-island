@@ -9,14 +9,36 @@ struct CrabBundle: WidgetBundle {
     }
 }
 
+struct NoteTimer: View {
+    let state: CrabAttributes.ContentState
+    let stale: Bool
+    var body: some View {
+        if let e = state.end, !stale, e > state.since {
+            HStack(spacing: 4) {
+                Text("被窝在等你")
+                Text(timerInterval: state.since...e, countsDown: true)
+                    .monospacedDigit()
+                    .frame(width: 52, alignment: .leading)
+            }
+        } else {
+            Text("时间到啦，也算数")
+        }
+    }
+}
+
 struct CrabLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: CrabAttributes.self) { context in
             HStack(spacing: 12) {
                 CrabFace(state: context.state, box: CGSize(width: 60, height: 40), lock: true)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(context.attributes.name).font(.headline)
-                    Text("\(context.state.emoji) \(context.state.mood)").font(.subheadline)
+                    if let n = context.state.note {
+                        Text(n).font(.headline).lineLimit(2)
+                        NoteTimer(state: context.state, stale: context.isStale).font(.subheadline)
+                    } else {
+                        Text(context.attributes.name).font(.headline)
+                        Text("\(context.state.emoji) \(context.state.mood)").font(.subheadline)
+                    }
                 }
                 Spacer()
             }
@@ -32,12 +54,27 @@ struct CrabLiveActivity: Widget {
                     Text(context.state.emoji).font(.title)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("\(context.attributes.name) · \(context.state.mood)")
+                    if let n = context.state.note {
+                        VStack(spacing: 2) {
+                            Text(n).lineLimit(2)
+                            NoteTimer(state: context.state, stale: context.isStale)
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        }
+                    } else {
+                        Text("\(context.attributes.name) · \(context.state.mood)")
+                    }
                 }
             } compactLeading: {
                 CrabFace(state: context.state, box: CGSize(width: 44, height: 30))
             } compactTrailing: {
-                Text(context.state.emoji)
+                if let e = context.state.end, !context.isStale, e > context.state.since {
+                    Text(timerInterval: context.state.since...e, countsDown: true)
+                        .monospacedDigit()
+                        .frame(width: 40)
+                } else {
+                    Text(context.state.emoji)
+                }
             } minimal: {
                 ClawdView(height: 16)
             }
