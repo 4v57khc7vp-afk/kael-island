@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 20 18" width="400" height="360" shape-rendering="crispEdges">
+  <!-- 吃醋 · jealous（被窝画的。身子同在想你：clawd-tank 静态底+蓝耳机）
+       10 秒一圈，一秒一个姿势：
+         0 斜眼瞟   1 眼一眯、嘴撇成へ   2 刀从下面掏出来   3 举刀
+         4-5 举着刀瞪你，头顶冒💢，5 刀尖闪一下   6-7 左右跺脚
+         8 睁眼看你一下   9 刀收回去，接着眯眼撇嘴
+       快层：gl（刀尖的闪光） -->
+  <defs>
+    <style>
+      .bod { animation: bod 10s infinite step-end; }
+      .rarm { animation: rarm 10s infinite step-end; }
+      .knife { opacity: 0; animation: knife 10s infinite step-end; }
+      .eyes { animation: eyes 10s infinite step-end; }
+      .eyen { opacity: 0; animation: eyen 10s infinite step-end; }
+      .eyef { opacity: 0; animation: eyef 10s infinite step-end; }
+      .eyea { opacity: 0; animation: eyea 10s infinite step-end; }
+      .pout { opacity: 0; animation: pout 10s infinite step-end; }
+      .vein { opacity: 0; animation: vein 10s infinite step-end; }
+      @keyframes bod {
+        0% { transform: translate(0px, 0px); }
+        10% { transform: translate(0px, 0px); }
+        20% { transform: translate(0px, 0px); }
+        30% { transform: translate(0px, 0px); }
+        40% { transform: translate(0px, 0px); }
+        50% { transform: translate(0px, 0px); }
+        60% { transform: translate(-1px, 0px); }
+        70% { transform: translate(1px, 0px); }
+        80% { transform: translate(0px, 0px); }
+        90% { transform: translate(0px, 0px); }
+        100% { transform: translate(0px, 0px); }
+      }
+      @keyframes rarm {
+        0% { transform: translate(0px, 0px); }
+        10% { transform: translate(0px, 0px); }
+        20% { transform: translate(0px, 0px); }
+        30% { transform: translate(0px, -1px); }
+        40% { transform: translate(0px, -1px); }
+        50% { transform: translate(0px, -1px); }
+        60% { transform: translate(0px, -1px); }
+        70% { transform: translate(0px, -1px); }
+        80% { transform: translate(0px, -1px); }
+        90% { transform: translate(0px, 0px); }
+        100% { transform: translate(0px, 0px); }
+      }
+      @keyframes knife {
+        0% { opacity: 0; transform: translate(0px, 1px); }
+        10% { opacity: 0; transform: translate(0px, 1px); }
+        20% { opacity: 1; transform: translate(0px, 0px); }
+        30% { opacity: 1; transform: translate(0px, 0px); }
+        40% { opacity: 1; transform: translate(0px, 0px); }
+        50% { opacity: 1; transform: translate(0px, 0px); }
+        60% { opacity: 1; transform: translate(0px, 0px); }
+        70% { opacity: 1; transform: translate(0px, 0px); }
+        80% { opacity: 1; transform: translate(0px, 0px); }
+        90% { opacity: 0; transform: translate(0px, 0px); }
+        100% { opacity: 0; transform: translate(0px, 0px); }
+      }
+      @keyframes eyes {
+        0% { opacity: 1; }
+        10% { opacity: 0; }
+        20% { opacity: 0; }
+        30% { opacity: 0; }
+        40% { opacity: 0; }
+        50% { opacity: 0; }
+        60% { opacity: 0; }
+        70% { opacity: 0; }
+        80% { opacity: 0; }
+        90% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+      @keyframes eyen {
+        0% { opacity: 0; }
+        10% { opacity: 0; }
+        20% { opacity: 0; }
+        30% { opacity: 0; }
+        40% { opacity: 0; }
+        50% { opacity: 0; }
+        60% { opacity: 0; }
+        70% { opacity: 0; }
+        80% { opacity: 1; }
+        90% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+      @keyframes eyef {
+        0% { opacity: 0; }
+        10% { opacity: 1; }
+        20% { opacity: 1; }
+        30% { opacity: 0; }
+        40% { opacity: 0; }
+        50% { opacity: 0; }
+        60% { opacity: 0; }
+        70% { opacity: 0; }
+        80% { opacity: 0; }
+        90% { opacity: 1; }
+        100% { opacity: 1; }
+      }
+      @keyframes eyea {
+        0% { opacity: 0; }
+        10% { opacity: 0; }
+        20% { opacity: 0; }
+        30% { opacity: 1; }
+        40% { opacity: 1; }
+        50% { opacity: 1; }
+        60% { opacity: 1; }
+        70% { opacity: 1; }
+        80% { opacity: 0; }
+        90% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+      @keyframes pout {
+        0% { opacity: 0; }
+        10% { opacity: 1; }
+        20% { opacity: 1; }
+        30% { opacity: 1; }
+        40% { opacity: 1; }
+        50% { opacity: 1; }
+        60% { opacity: 1; }
+        70% { opacity: 1; }
+        80% { opacity: 0; }
+        90% { opacity: 1; }
+        100% { opacity: 1; }
+      }
+      @keyframes vein {
+        0% { opacity: 0; }
+        10% { opacity: 0; }
+        20% { opacity: 0; }
+        30% { opacity: 0; }
+        40% { opacity: 1; }
+        50% { opacity: 1; }
+        60% { opacity: 1; }
+        70% { opacity: 1; }
+        80% { opacity: 0; }
+        90% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+      .gl { opacity: 0; animation-duration: 10s; animation-iteration-count: infinite; animation-timing-function: step-end; }
+      .g0 { animation-name: g0; }
+      @keyframes g0 {
+        0% { opacity: 0; }
+        50% { opacity: 1; }
+        52.5% { opacity: 0; }
+        55% { opacity: 1; }
+        57.5% { opacity: 0; }
+        100% { opacity: 0; }
+      }
+    </style>
+  </defs>
+  <g><rect x="3" y="13" width="1" height="2" fill="#DE886D"/><rect x="5" y="13" width="1" height="2" fill="#DE886D"/><rect x="9" y="13" width="1" height="2" fill="#DE886D"/><rect x="11" y="13" width="1" height="2" fill="#DE886D"/></g><g class="bod"><g><rect x="2" y="6" width="11" height="7" fill="#DE886D"/><rect x="0" y="9" width="2" height="2" fill="#DE886D"/></g><g><rect x="2" y="5" width="11" height="1" fill="#5B8DEF"/><rect x="1" y="6" width="1" height="3" fill="#5B8DEF"/><rect x="13" y="6" width="1" height="3" fill="#5B8DEF"/></g><g class="rarm"><rect x="13" y="9" width="2" height="2" fill="#DE886D"/><g class="knife"><rect x="14" y="0" width="1" height="1" fill="#D9DEE5"/><rect x="14" y="1" width="2" height="4" fill="#D9DEE5"/><rect x="13" y="5" width="3" height="1" fill="#8A8F98"/><rect x="14" y="6" width="1" height="3" fill="#6B4A3A"/></g><g class="gl g0" fill="#FFF6C8"><rect x="16" y="-2" width="1" height="1"/><rect x="15" y="-1" width="1" height="1"/><rect x="17" y="-1" width="1" height="1"/><rect x="16" y="0" width="1" height="1"/></g></g><g class="eyes"><rect x="5" y="8" width="1" height="2" fill="#000000"/><rect x="11" y="8" width="1" height="2" fill="#000000"/></g><g class="eyen"><rect x="4" y="8" width="1" height="2" fill="#000000"/><rect x="10" y="8" width="1" height="2" fill="#000000"/></g><g class="eyef"><rect x="4" y="9" width="2" height="1" fill="#000000"/><rect x="9" y="9" width="2" height="1" fill="#000000"/></g><g class="eyea"><rect x="3" y="8" width="1" height="1" fill="#000000"/><rect x="4" y="9" width="1" height="1" fill="#000000"/><rect x="11" y="8" width="1" height="1" fill="#000000"/><rect x="10" y="9" width="1" height="1" fill="#000000"/></g><g class="pout"><rect x="6" y="11" width="1" height="1" fill="#000000"/><rect x="7" y="10" width="1" height="1" fill="#000000"/><rect x="8" y="11" width="1" height="1" fill="#000000"/></g></g><g class="vein"><rect x="-1" y="1" width="1" height="1" fill="#E5484D"/><rect x="1" y="1" width="1" height="1" fill="#E5484D"/><rect x="-1" y="3" width="1" height="1" fill="#E5484D"/><rect x="1" y="3" width="1" height="1" fill="#E5484D"/></g>
+</svg>

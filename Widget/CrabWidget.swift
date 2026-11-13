@@ -26,32 +26,56 @@ struct NoteTimer: View {
     }
 }
 
+// island-b②：网页喊来的 mood 过了 60 秒（isStale 且不是纸条）。这时岛上和锁屏都缩成最小：
+// 只画 ClawdView 那只静态小螃蟹（十几个 Rectangle，画一次就完），不再画 CrabFace（每层一个 Text(timerInterval:)，系统要每秒换帧）。
+// 纸条的 isStale 不走这里，照旧是“时间到啦，也算数”。
+private func moodGone(_ c: ActivityViewContext<CrabAttributes>) -> Bool {
+    c.isStale && c.state.note == nil
+}
+
 struct CrabLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: CrabAttributes.self) { context in
-            HStack(spacing: 12) {
-                CrabFace(state: context.state, box: CGSize(width: 60, height: 40), lock: true)
-                VStack(alignment: .leading, spacing: 2) {
-                    if let n = context.state.note {
-                        Text(n).font(.headline).lineLimit(2)
-                        NoteTimer(state: context.state, stale: context.isStale).font(.subheadline)
-                    } else {
-                        Text(context.attributes.name).font(.headline)
-                        Text("\(context.state.emoji) \(context.state.mood)").font(.subheadline)
+            Group {
+                if moodGone(context) {
+                    HStack(spacing: 8) {
+                        ClawdView(height: 16)
+                        Spacer()
                     }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                } else {
+                    HStack(spacing: 12) {
+                        CrabFace(state: context.state, box: CGSize(width: 60, height: 40), lock: true)
+                        VStack(alignment: .leading, spacing: 2) {
+                            if let n = context.state.note {
+                                Text(n).font(.headline).lineLimit(2)
+                                NoteTimer(state: context.state, stale: context.isStale).font(.subheadline)
+                            } else {
+                                Text(context.attributes.name).font(.headline)
+                                Text("\(context.state.emoji) \(context.state.mood)").font(.subheadline)
+                            }
+                        }
+                        Spacer()
+                    }
+                    .padding()
                 }
-                Spacer()
             }
-            .padding()
             .activityBackgroundTint(Color.black.opacity(0.7))
             .activitySystemActionForegroundColor(.white)
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    CrabFace(state: context.state, box: CGSize(width: 72, height: 48))
+                    if moodGone(context) {
+                        ClawdView(height: 20)
+                    } else {
+                        CrabFace(state: context.state, box: CGSize(width: 72, height: 48))
+                    }
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text(context.state.emoji).font(.title)
+                    if !moodGone(context) {
+                        Text(context.state.emoji).font(.title)
+                    }
                 }
                 DynamicIslandExpandedRegion(.bottom) {
                     if let n = context.state.note {
@@ -61,18 +85,22 @@ struct CrabLiveActivity: Widget {
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }
-                    } else {
+                    } else if !moodGone(context) {
                         Text("\(context.attributes.name) · \(context.state.mood)")
                     }
                 }
             } compactLeading: {
-                CrabFace(state: context.state, box: CGSize(width: 44, height: 30))
+                if moodGone(context) {
+                    ClawdView(height: 16)
+                } else {
+                    CrabFace(state: context.state, box: CGSize(width: 44, height: 30))
+                }
             } compactTrailing: {
                 if let e = context.state.end, !context.isStale, e > context.state.since {
                     Text(timerInterval: context.state.since...e, countsDown: true)
                         .monospacedDigit()
                         .frame(width: 40)
-                } else {
+                } else if !moodGone(context) {
                     Text(context.state.emoji)
                 }
             } minimal: {
