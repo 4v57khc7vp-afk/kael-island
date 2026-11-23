@@ -83,6 +83,11 @@ struct HomeWeb: UIViewRepresentable {
                 Task { @MainActor in await Island.mood(mood) }
             case "off":
                 Task { @MainActor in await Island.off() }
+            case "haptic":
+                // 摸摸：网页喊一下震一下。style = light/medium/heavy/soft/rigid，intensity 0~1
+                let style = (d["style"] as? String) ?? "light"
+                let k = (d["intensity"] as? NSNumber)?.doubleValue ?? 0.6
+                Task { @MainActor in Haptic.tap(style, CGFloat(max(0.05, min(k, 1)))) }
             default:
                 return
             }
@@ -316,5 +321,24 @@ struct MoodPanel: View {
             }
             .padding(24)
         }
+    }
+}
+
+// 摸摸：震动。生成器按档留着复用，第一下不卡。
+@MainActor enum Haptic {
+    private static var gens: [String: UIImpactFeedbackGenerator] = [:]
+    static func tap(_ style: String, _ k: CGFloat) {
+        let s: UIImpactFeedbackGenerator.FeedbackStyle
+        switch style {
+        case "medium": s = .medium
+        case "heavy": s = .heavy
+        case "soft": s = .soft
+        case "rigid": s = .rigid
+        default: s = .light
+        }
+        let g: UIImpactFeedbackGenerator
+        if let old = gens[style] { g = old } else { g = UIImpactFeedbackGenerator(style: s); gens[style] = g }
+        g.impactOccurred(intensity: k)
+        g.prepare()
     }
 }
