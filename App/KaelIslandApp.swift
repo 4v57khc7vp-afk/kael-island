@@ -1,6 +1,7 @@
 import SwiftUI
 import ActivityKit
 import WebKit
+import UIKit.UIGestureRecognizerSubclass
 
 // 壳子：里面装的是家（home.xminute.help）。
 // 家里扔小纸条时，网页通过 webkit.messageHandlers.island 告诉壳子，壳子把它放到灵动岛上。
@@ -53,6 +54,7 @@ struct HomeWeb: UIViewRepresentable {
         lp.minimumPressDuration = 0.8
         lp.cancelsTouchesInView = false
         w.addGestureRecognizer(lp)
+        w.addGestureRecognizer(TouchRadius(w))
         w.load(URLRequest(url: URL(string: "https://home.xminute.help/")!))
         return w
     }
@@ -341,4 +343,43 @@ struct MoodPanel: View {
         g.impactOccurred(intensity: k)
         g.prepare()
     }
+}
+
+// 摸摸：iOS网页读不到手指接触面积（给的宽高是糊的），壳子在原生这头读 UITouch.majorRadius / force，
+// 每根手指抬起时把这一笔最大的半径塞回网页 window.__nativeTouch。不拦、不吞任何手势。
+// 思路参考 inkandswitch/wrapper 的 TouchesToJS（Unlicense 公有领域）。
+final class TouchRadius: UIGestureRecognizer, UIGestureRecognizerDelegate {
+    weak var web: WKWebView?
+    private var peak: [ObjectIdentifier: (r: CGFloat, f: CGFloat, fm: CGFloat)] = [:]
+    init(_ w: WKWebView) {
+        web = w
+        super.init(target: nil, action: nil)
+        cancelsTouchesInView = false
+        delaysTouchesBegan = false
+        delaysTouchesEnded = false
+        requiresExclusiveTouchType = false
+        delegate = self
+    }
+    func gestureRecognizer(_ g: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith o: UIGestureRecognizer) -> Bool { true }
+    private func note(_ ts: Set<UITouch>) {
+        for t in ts {
+            let k = ObjectIdentifier(t)
+            let o = peak[k] ?? (r: 0, f: 0, fm: 0)
+            peak[k] = (r: max(o.r, t.majorRadius), f: max(o.f, t.force), fm: t.maximumPossibleForce)
+        }
+    }
+    private func finish(_ ts: Set<UITouch>) {
+        note(ts)
+        for t in ts {
+            guard let m = peak.removeValue(forKey: ObjectIdentifier(t)) else { continue }
+            let js = String(format: "window.__nativeTouch&&window.__nativeTouch({r:%.2f,f:%.3f,fm:%.3f})", Double(m.r), Double(m.f), Double(m.fm))
+            web?.evaluateJavaScript(js, completionHandler: nil)
+        }
+        if peak.isEmpty { state = .failed }
+    }
+    override func touchesBegan(_ ts: Set<UITouch>, with e: UIEvent) { super.touchesBegan(ts, with: e); note(ts) }
+    override func touchesMoved(_ ts: Set<UITouch>, with e: UIEvent) { super.touchesMoved(ts, with: e); note(ts) }
+    override func touchesEnded(_ ts: Set<UITouch>, with e: UIEvent) { super.touchesEnded(ts, with: e); finish(ts) }
+    override func touchesCancelled(_ ts: Set<UITouch>, with e: UIEvent) { super.touchesCancelled(ts, with: e); finish(ts) }
+    override func reset() { super.reset(); peak.removeAll() }
 }
